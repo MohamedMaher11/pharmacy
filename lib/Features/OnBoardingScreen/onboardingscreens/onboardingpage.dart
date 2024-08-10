@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/OnBoardingScreen/onboarding_cubit/onboardingcubit.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String imagePath;
   final String title;
   final String description;
-
+  final PageController controller;
   OnboardingPage({
     required this.imagePath,
     required this.title,
     required this.description,
+    required this.controller,
   });
 
   @override
@@ -38,6 +40,11 @@ class OnboardingPage extends StatelessWidget {
             ),
           ),
         ),
+        SmoothPageIndicator(
+            controller: controller,
+            count: 3,
+            effect: ExpandingDotsEffect(
+                activeDotColor: Colors.brown, dotHeight: 10, dotWidth: 10)),
         Expanded(
           flex: 2,
           child: Column(

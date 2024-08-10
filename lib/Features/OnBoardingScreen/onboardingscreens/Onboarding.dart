@@ -21,18 +21,21 @@ class OnboardingScreen extends StatelessWidget {
               },
               children: [
                 OnboardingPage(
+                  controller: _pageController,
                   imagePath: Assets.pharmacy.path,
                   title: 'Welcome to Your Pharmacy',
                   description:
                       'Your health is our priority. Get all the medicines and medical consultations you need.',
                 ),
                 OnboardingPage(
+                  controller: _pageController,
                   imagePath: Assets.medecin.path,
                   title: 'Explore Our Medicines',
                   description:
                       'Find all the medicines you need with detailed information and availability.',
                 ),
                 OnboardingPage(
+                  controller: _pageController,
                   imagePath: Assets.consult.path,
                   title: 'Medical Consultations',
                   description:
