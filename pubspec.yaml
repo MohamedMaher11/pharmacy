@@ -16,6 +16,8 @@ dependencies:
   device_preview:
   intl_phone_number_input: ^0.7.0+2
   smooth_page_indicator:
+  font_awesome_flutter:
+  carousel_slider: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
