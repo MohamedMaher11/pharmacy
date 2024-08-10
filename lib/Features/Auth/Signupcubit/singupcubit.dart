@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupCubit extends Cubit<SignupState> {
@@ -15,6 +16,7 @@ class SignupCubit extends Cubit<SignupState> {
         email: email,
         password: password,
       );
+      _saveUserData(email, name);
       emit(SignupSuccess());
     } catch (e) {
       emit(SignupFailure(e.toString()));
@@ -86,3 +88,16 @@ class SignupFailure extends SignupState {
 }
 
 class SignupCodeSent extends SignupState {}
+
+Future<void> _saveUserData(String email, String name) async {
+  final firestore = FirebaseFirestore.instance;
+  try {
+    await firestore.collection('users').add({
+      'email': email,
+      'name': name,
+    });
+  } catch (e) {
+    // Handle error
+    print('Error saving user data: $e');
+  }
+}

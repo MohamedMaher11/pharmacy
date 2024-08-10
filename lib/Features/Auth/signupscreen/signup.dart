@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
-import 'package:hamo_pharmacy/Features/Auth/signupscreen/Name_Input.dart';
+import 'package:hamo_pharmacy/Features/HomeScreen/views/Home.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -67,10 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
           if (state is SignupSuccess) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    NameInputScreen(email: _emailController.text),
-              ),
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           } else if (state is SignupFailure) {
             _showErrorDialog(context, _getFriendlyErrorMessage(state.error));
@@ -105,6 +102,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: _togglePasswordVisibility,
                   ),
                 ),
+                SizedBox(height: 16),
+                _buildTextField(_nameController, 'Name'),
                 SizedBox(height: 32),
                 SizedBox(
                   width: 370,
@@ -133,7 +132,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue[600],
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
@@ -147,7 +145,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue[800],
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),

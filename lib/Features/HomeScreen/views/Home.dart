@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
 
             // Health Category Section
-            buildHealthCategorySection(),
+            buildHealthCategorySection(context),
             SizedBox(height: 20),
 
             // Offers Section
