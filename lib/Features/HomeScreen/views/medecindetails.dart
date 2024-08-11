@@ -254,7 +254,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                 color: Colors.grey[200],
                               ),
                               child: Icon(FontAwesomeIcons.plus,
-                                  size: 24, color: Colors.green[600]),
+                                  size: 24, color: Colors.blue[800]),
                             ),
                           ),
                         ],
