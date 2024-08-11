@@ -43,6 +43,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
+        // العنصر غير موجود في السلة، قم بإضافته
         try {
           await cartCollection.add({
             'userId': userId,
@@ -62,19 +63,25 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
           );
         }
       } else {
+        // العنصر موجود في السلة، قم بتحديث الكمية والسعر
         final docId = querySnapshot.docs.first.id;
         final doc = querySnapshot.docs.first;
 
         try {
-          final existingQuantity =
-              (doc.data() as Map<String, dynamic>)['quantity'];
+          final existingData = doc.data() as Map<String, dynamic>;
+          final existingQuantity = existingData['quantity'] ?? 0;
+          final existingPrice = existingData['price'] ?? 0.0;
+
+          // تحديث الكمية والسعر بناءً على الكمية المضافة فقط
           final newQuantity = existingQuantity + _quantity;
-          final newPrice = (widget.medicine.price * newQuantity);
+          final newPrice = widget.medicine.price * newQuantity;
 
           await cartCollection.doc(docId).update({
             'quantity': newQuantity,
-            'price': newPrice,
+            'price': widget.medicine.price *
+                newQuantity, // حساب السعر بناءً على الكمية الجديدة
           });
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content:
