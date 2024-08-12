@@ -71,6 +71,7 @@ class Assets {
   static const AssetGenImage pngegg3 = AssetGenImage('assets/pngegg3.png');
   static const AssetGenImage protinexVanilla500x500 =
       AssetGenImage('assets/protinex-vanilla-500x500.png');
+  static const AssetGenImage user = AssetGenImage('assets/user.png');
 
   /// List of all assets
   static List<AssetGenImage> get values => [
@@ -96,7 +97,8 @@ class Assets {
         pngegg,
         pngegg2,
         pngegg3,
-        protinexVanilla500x500
+        protinexVanilla500x500,
+        user
       ];
 }
 

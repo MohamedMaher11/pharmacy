@@ -12,6 +12,7 @@ dependencies:
   cloud_firestore: ^5.2.1
   firebase_core:
   firebase_auth:
+  firebase_storage:
   flutter_bloc:
   device_preview:
   provider:
@@ -19,6 +20,7 @@ dependencies:
   smooth_page_indicator:
   font_awesome_flutter:
   carousel_slider: ^5.0.0
+  image_picker: ^1.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

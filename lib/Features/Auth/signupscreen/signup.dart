@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/views/Home.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  XFile? _profileImage;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -21,36 +24,21 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-  void _showErrorDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Icon(Icons.error, color: Colors.red),
-              SizedBox(width: 8),
-              Text('Error'),
-            ],
-          ),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
+  void _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _profileImage = pickedFile;
+    });
   }
 
   void _signUp(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<SignupCubit>().signupWithEmail(
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-            _nameController.text.trim(),
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+            name: _nameController.text.trim(),
+            profileImage: _profileImage, // تمرير الصورة هنا
           );
     }
   }
@@ -77,8 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
               children: [
                 Text(
                   'Create your account',
@@ -104,6 +91,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 SizedBox(height: 16),
                 _buildTextField(_nameController, 'Name'),
+                SizedBox(height: 16),
+                _buildProfileImagePicker(),
                 SizedBox(height: 32),
                 SizedBox(
                   width: 370,
@@ -125,13 +114,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/phone_signup');
+                    Navigator.pushNamed(context, '/signup_doctor');
                   },
                   child: Text(
-                    'Sign up with phone',
+                    'Sign up as Doctor',
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.blue[600],
+                      color: Colors.blue,
                     ),
                   ),
                 ),
@@ -186,6 +175,21 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  Widget _buildProfileImagePicker() {
+    return GestureDetector(
+      onTap: _pickImage,
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: _profileImage != null
+            ? FileImage(File(_profileImage!.path))
+            : AssetImage('assets/images/default_profile.png') as ImageProvider,
+        child: _profileImage == null
+            ? Icon(Icons.camera_alt, size: 50, color: Colors.grey[800])
+            : null,
+      ),
+    );
+  }
+
   String _getFriendlyErrorMessage(String error) {
     if (error.contains('email-already-in-use')) {
       return 'This email is already in use.';
@@ -196,5 +200,29 @@ class _SignupScreenState extends State<SignupScreen> {
     } else {
       return 'An unknown error occurred. Please try again.';
     }
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(Icons.error, color: Colors.red),
+              SizedBox(width: 8),
+              Text('Error'),
+            ],
+          ),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
