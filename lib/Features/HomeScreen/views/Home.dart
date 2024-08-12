@@ -2,15 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/views/cartpage.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/views/favouratepage.dart';
+import 'package:hamo_pharmacy/Features/Cart/cartpage.dart';
+import 'package:hamo_pharmacy/Features/Favourate/favouratepage.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/category.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/discount.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/doctor_consult.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/offersection.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/searchbar.dart';
-import 'package:hamo_pharmacy/gen/assets.gen.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -142,7 +140,7 @@ class HomePage extends StatelessWidget {
           children: [
             buildSearchBar(),
             SizedBox(height: 20),
-            buildDoctorConsultationSection(),
+            buildDoctorConsultationSection(context),
             SizedBox(height: 20),
             buildHealthCategorySection(context),
             SizedBox(height: 20),

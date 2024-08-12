@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/Model/medecinmodel.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/views/medecindetails.dart'; // استيراد الـ models
+import 'package:hamo_pharmacy/Model/medecinmodel.dart';
+import 'package:hamo_pharmacy/Features/DetailsPage/medecindetails.dart'; // استيراد الـ models
 
 class MedicinePage extends StatelessWidget {
   final Category category;
