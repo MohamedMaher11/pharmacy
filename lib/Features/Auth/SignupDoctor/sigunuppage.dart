@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/Auth/SignupDoctor/signupcubit.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
+import 'package:hamo_pharmacy/gen/assets.gen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignupDoctorScreen extends StatefulWidget {
@@ -17,7 +19,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _selectedSpecialty = 'Pediatrics'; // التخصص الافتراضي
+  String _selectedSpecialty = 'طب الأطفال'; // التخصص الافتراضي
   XFile? _profileImage;
   bool _obscureText = true;
 
@@ -37,7 +39,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
         _profileImage = pickedFile;
       });
     } else {
-      _showErrorDialog(context, 'Please select an image less than 5MB.');
+      _showErrorDialog(context, 'يرجى اختيار صورة أقل من 5 ميجابايت.');
     }
   }
 
@@ -57,34 +59,34 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your Email';
+      return 'يرجى إدخال بريدك الإلكتروني';
     } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-      return 'Please enter a valid Email';
+      return 'يرجى إدخال بريد إلكتروني صالح';
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your Password';
+      return 'يرجى إدخال كلمة المرور الخاصة بك';
     } else if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return 'يجب أن تكون كلمة المرور على الأقل 6 أحرف';
     }
     return null;
   }
 
   String? _validateNotEmpty(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your $fieldName';
+      return 'يرجى إدخال $fieldName';
     }
     return null;
   }
 
   String? _validatePhone(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your Phone Number';
+      return 'يرجى إدخال رقم هاتفك';
     } else if (!RegExp(r'^\+?[0-9]{7,15}$').hasMatch(value)) {
-      return 'Please enter a valid Phone Number';
+      return 'يرجى إدخال رقم هاتف صالح';
     }
     return null;
   }
@@ -98,14 +100,14 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             children: [
               Icon(Icons.error, color: Colors.red),
               SizedBox(width: 8),
-              Text('Error'),
+              Text('خطأ'),
             ],
           ),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: Text('موافق'),
             ),
           ],
         );
@@ -115,15 +117,15 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
 
   String _getFriendlyErrorMessage(String error) {
     if (error.contains('email-already-in-use')) {
-      return 'This email is already in use.';
+      return 'هذا البريد الإلكتروني قيد الاستخدام بالفعل.';
     } else if (error.contains('weak-password')) {
-      return 'The password is too weak.';
+      return 'كلمة المرور ضعيفة جداً.';
     } else if (error.contains('invalid-email')) {
-      return 'The email address is not valid.';
+      return 'عنوان البريد الإلكتروني غير صالح.';
     } else if (error.contains('network-request-failed')) {
-      return 'Network error. Please check your connection.';
+      return 'خطأ في الشبكة. يرجى التحقق من اتصالك.';
     } else {
-      return 'An unknown error occurred. Please try again.';
+      return 'حدث خطأ غير معروف. يرجى المحاولة مرة أخرى.';
     }
   }
 
@@ -131,7 +133,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up as Doctor'),
+        title: Text('التسجيل كطبيب'),
         backgroundColor: Colors.redAccent,
       ),
       body: BlocListener<SignupDoctorCubit, SignupDoctorState>(
@@ -149,24 +151,24 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             child: ListView(
               children: [
                 Text(
-                  'Create your Doctor Account',
+                  'أنشئ حساب الطبيب الخاص بك',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: Colors.redAccent,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 16),
-                buildTextField(
+                buildTextFieldDoctor(
                   controller: _emailController,
-                  label: 'Email',
+                  label: 'البريد الإلكتروني',
                   validator: _validateEmail,
                 ),
                 SizedBox(height: 16),
-                buildTextField(
+                buildTextFieldDoctor(
                   controller: _passwordController,
-                  label: 'Password',
+                  label: 'كلمة المرور',
                   obscureText: _obscureText,
                   validator: _validatePassword,
                   suffixIcon: IconButton(
@@ -177,23 +179,23 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-                buildTextField(
+                buildTextFieldDoctor(
                   controller: _nameController,
-                  label: 'Name',
-                  validator: (value) => _validateNotEmpty(value, 'Name'),
+                  label: 'الاسم',
+                  validator: (value) => _validateNotEmpty(value, 'الاسم'),
                 ),
                 SizedBox(height: 16),
                 _buildDropdownMenu(),
                 SizedBox(height: 16),
-                buildTextField(
+                buildTextFieldDoctor(
                   controller: _addressController,
-                  label: 'Address',
-                  validator: (value) => _validateNotEmpty(value, 'Address'),
+                  label: 'العنوان',
+                  validator: (value) => _validateNotEmpty(value, 'العنوان'),
                 ),
                 SizedBox(height: 16),
-                buildTextField(
+                buildTextFieldDoctor(
                   controller: _phoneController,
-                  label: 'Phone Number',
+                  label: 'رقم الهاتف',
                   validator: _validatePhone,
                   keyboardType: TextInputType.phone,
                 ),
@@ -212,7 +214,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                     ),
                     onPressed: () => _signUpDoctor(context),
                     child: Text(
-                      'Sign Up as Doctor',
+                      'سجل كطبيب',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
@@ -225,29 +227,6 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
     );
   }
 
-  Widget buildTextField({
-    required TextEditingController controller,
-    required String label,
-    String? Function(String?)? validator,
-    bool obscureText = false,
-    Widget? suffixIcon,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        suffixIcon: suffixIcon,
-      ),
-      validator: validator,
-    );
-  }
-
   Widget _buildDropdownMenu() {
     return DropdownButtonFormField<String>(
       value: _selectedSpecialty,
@@ -257,12 +236,12 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
         });
       },
       items: <String>[
-        'Pediatrics',
-        'Internal Medicine',
-        'Gynecology',
-        'Cardiology',
-        'Dermatology',
-        'Neurology',
+        'طب الأطفال',
+        'الطب الباطني',
+        'النسائية والتوليد',
+        'أمراض القلب',
+        'الأمراض الجلدية',
+        'الأعصاب',
         // أضف المزيد من التخصصات هنا
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -271,14 +250,14 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
         );
       }).toList(),
       decoration: InputDecoration(
-        labelText: 'Specialty',
+        labelText: 'التخصص',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please select your Specialty';
+          return 'يرجى اختيار تخصصك';
         }
         return null;
       },
@@ -289,7 +268,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
     return Column(
       children: [
         Text(
-          'Profile Image',
+          'صورة الملف الشخصي',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
@@ -299,22 +278,41 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             radius: 50,
             backgroundImage: _profileImage != null
                 ? FileImage(File(_profileImage!.path))
-                : AssetImage('assets/images/default_profile.png')
-                    as ImageProvider,
+                : AssetImage(Assets.user.path) as ImageProvider,
             child: _profileImage == null
                 ? Icon(Icons.camera_alt, size: 50, color: Colors.grey[800])
                 : null,
           ),
         ),
-        if (_profileImage == null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Tap to select an image',
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
+        SizedBox(height: 8),
+        Text(
+          'اضغط لاختيار صورة',
+          style: TextStyle(color: Colors.grey[600]),
+        ),
       ],
+    );
+  }
+
+  Widget buildTextFieldDoctor({
+    required TextEditingController controller,
+    required String label,
+    bool obscureText = false,
+    Widget? suffixIcon,
+    required String? Function(String?) validator,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        suffixIcon: suffixIcon,
+      ),
+      validator: validator,
+      keyboardType: keyboardType,
     );
   }
 }

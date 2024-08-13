@@ -6,7 +6,7 @@ import 'package:hamo_pharmacy/Features/HomeScreen/widgets/medecin.dart';
 Widget buildHealthCategoryCard(Category category, BuildContext context) {
   return GestureDetector(
     onTap: () {
-      // Navigate to the medicines page for the selected category
+      // الانتقال إلى صفحة الأدوية للفئة المحددة
       Navigator.push(
         context,
         MaterialPageRoute(

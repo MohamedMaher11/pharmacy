@@ -54,12 +54,12 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
             'quantity': _quantity,
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('${widget.medicine.name} added to cart')),
+            SnackBar(content: Text('${widget.medicine.name} أضيف إلى السلة')),
           );
         } catch (e) {
-          print('Failed to add to cart: $e');
+          print('فشل في إضافة إلى السلة: $e');
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to add to cart')),
+            SnackBar(content: Text('فشل في إضافة إلى السلة')),
           );
         }
       } else {
@@ -85,12 +85,12 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content:
-                    Text('${widget.medicine.name} quantity updated in cart')),
+                    Text('${widget.medicine.name} تم تحديث الكمية في السلة')),
           );
         } catch (e) {
-          print('Failed to update cart: $e');
+          print('فشل في تحديث السلة: $e');
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to update cart')),
+            SnackBar(content: Text('فشل في تحديث السلة')),
           );
         }
       }
@@ -120,13 +120,13 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
             'description': widget.medicine.description,
           });
         } catch (e) {
-          print('Failed to add to favorites: $e');
+          print('فشل في إضافة إلى المفضلة: $e');
         }
       } else if (!isFavorited && querySnapshot.docs.isNotEmpty) {
         try {
           await favoritesCollection.doc(querySnapshot.docs.first.id).delete();
         } catch (e) {
-          print('Failed to remove from favorites: $e');
+          print('فشل في إزالة من المفضلة: $e');
         }
       }
     }
@@ -269,7 +269,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                       ElevatedButton.icon(
                         onPressed: () => _addToCart(context),
                         icon: Icon(FontAwesomeIcons.cartPlus),
-                        label: Text('Add to Cart'),
+                        label: Text('أضف إلى السلة'),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.orange[700],
@@ -287,9 +287,9 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                     width: 370,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigate to checkout or buy directly
+                        // انتقل إلى صفحة الدفع أو اشترِ مباشرة
                       },
-                      child: Text('Buy Now'),
+                      child: Text('اشتر الآن'),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.blue[800],

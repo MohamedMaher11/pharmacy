@@ -23,23 +23,23 @@ class OnboardingScreen extends StatelessWidget {
                 OnboardingPage(
                   controller: _pageController,
                   imagePath: Assets.pharmacy.path,
-                  title: 'Welcome to Your Pharmacy',
+                  title: 'مرحبا بكم في صيدليتكم',
                   description:
-                      'Your health is our priority. Get all the medicines and medical consultations you need.',
+                      'صحتكم هي أولويتنا. احصلوا على جميع الأدوية والاستشارات الطبية التي تحتاجونها.',
                 ),
                 OnboardingPage(
                   controller: _pageController,
                   imagePath: Assets.medecin.path,
-                  title: 'Explore Our Medicines',
+                  title: 'استكشف أدويتنا',
                   description:
-                      'Find all the medicines you need with detailed information and availability.',
+                      'ابحثوا عن جميع الأدوية التي تحتاجونها مع معلومات تفصيلية وتوافرها.',
                 ),
                 OnboardingPage(
                   controller: _pageController,
                   imagePath: Assets.consult.path,
-                  title: 'Medical Consultations',
+                  title: 'استشارات طبية',
                   description:
-                      'Get in touch with our doctors for quick and reliable medical advice.',
+                      'تواصلوا مع أطبائنا للحصول على نصائح طبية سريعة وموثوقة.',
                 ),
               ],
             ),
@@ -51,7 +51,7 @@ class OnboardingScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, '/signup');
                 },
                 child: Text(
-                  'Skip',
+                  'تخطي',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[600],
@@ -84,7 +84,7 @@ class OnboardingScreen extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  'Next',
+                  'التالي',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),

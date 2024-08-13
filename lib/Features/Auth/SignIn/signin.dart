@@ -29,14 +29,14 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               Icon(Icons.error, color: Colors.red),
               SizedBox(width: 8),
-              Text('Error'),
+              Text('خطأ'),
             ],
           ),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: Text('موافق'),
             ),
           ],
         );
@@ -57,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: Text('تسجيل الدخول'),
         backgroundColor: Colors.orange,
       ),
       body: BlocListener<SignupCubit, SignupState>(
@@ -76,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Sign In to your account',
+                  'تسجيل الدخول إلى حسابك',
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -84,11 +84,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-                buildTextField(_emailController, 'Email'),
+                buildTextField(_emailController, 'البريد الإلكتروني'),
                 SizedBox(height: 16),
                 buildTextField(
                   _passwordController,
-                  'Password',
+                  'كلمة المرور',
                   obscureText: _obscureText,
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -110,7 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     onPressed: () => _signIn(context),
                     child: Text(
-                      'Sign In',
+                      'تسجيل الدخول',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),

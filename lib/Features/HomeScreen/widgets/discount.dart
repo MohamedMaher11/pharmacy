@@ -1,4 +1,3 @@
-// Discount Carousel Section with larger view and improved style
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hamo_pharmacy/gen/assets.gen.dart';
@@ -8,17 +7,18 @@ Widget buildDiscountCarousel() {
     margin: EdgeInsets.symmetric(vertical: 20.0),
     child: CarouselSlider(
       options: CarouselOptions(
-        height: 100.0, // Increase the height of the carousel
+        height: 100.0, // زيادة ارتفاع السلايدر
         autoPlay: true,
         enlargeCenterPage: true,
         viewportFraction: 0.8,
-        aspectRatio: 16 / 9, // Maintain a widescreen aspect ratio
+        aspectRatio: 16 / 9, // الحفاظ على نسبة العرض إلى الارتفاع بشكل عريض
         initialPage: 0,
       ),
       items: [
-        _buildDiscountCard('Summer Sale', 'Up to 70% Off', Assets.offer.path),
-        _buildDiscountCard('Flash Deal', 'Buy 1 Get 1 Free', Assets.offer.path),
-        _buildDiscountCard('Limited Offer', 'Free Delivery', Assets.offer.path),
+        _buildDiscountCard('خصم الصيف', 'حتى 70% خصم', Assets.offer.path),
+        _buildDiscountCard(
+            'عرض فلاش', 'اشترِ 1 واحصل على 1 مجاناً', Assets.offer.path),
+        _buildDiscountCard('عرض محدود', 'توصيل مجاني', Assets.offer.path),
       ],
     ),
   );

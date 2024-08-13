@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamo_pharmacy/gen/assets.gen.dart';
 
-// Enhanced Offers Section
+// قسم العروض المحسن
 Widget buildOffersSection() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -9,6 +9,7 @@ import 'package:hamo_pharmacy/Features/HomeScreen/widgets/discount.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/doctor_consult.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/offersection.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/searchbar.dart';
+import 'package:hamo_pharmacy/gen/assets.gen.dart';
 
 class HomePage extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              'Pharmacy',
+              'صيدلية',
               style: TextStyle(color: Colors.black),
             ),
             Spacer(),
@@ -165,9 +166,9 @@ class HomePage extends StatelessWidget {
           }
 
           final userData = snapshot.data!;
-          final userName = userData['name'] ?? 'User';
-          final userImage = userData['imageUrl'] ??
-              'https://www.example.com/default-profile-picture.png'; // صورة افتراضية
+          final userName = userData['name'] ?? 'مستخدم';
+          final userImage =
+              userData['imageUrl'] ?? Assets.user.path; // صورة افتراضية
 
           return ListView(
             padding: EdgeInsets.zero,
@@ -184,24 +185,21 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.home),
-                title: Text('Home'),
+                title: Text('الرئيسية'),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
                 leading: Icon(Icons.shopping_cart),
-                title: Text('My Cart'),
+                title: Text('موعدي'),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CartPage()),
-                  );
+                  Navigator.of(context).pushNamed('/user_appointment');
                 },
               ),
               ListTile(
                 leading: Icon(Icons.favorite),
-                title: Text('Favorites'),
+                title: Text('المفضلة'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -211,7 +209,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.logout),
-                title: Text('Logout'),
+                title: Text('تسجيل الخروج'),
                 onTap: () async {
                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushReplacementNamed('/sign_in');
@@ -228,7 +226,7 @@ class HomePage extends StatelessWidget {
     final uid = _auth.currentUser?.uid;
 
     if (uid == null) {
-      throw Exception('No user is logged in');
+      throw Exception('لا يوجد مستخدم مسجل الدخول');
     }
     try {
       final doctorDoc = await _firestore.collection('doctors').doc(uid).get();
@@ -236,7 +234,7 @@ class HomePage extends StatelessWidget {
         return doctorDoc;
       }
     } catch (e) {
-      print('Error fetching doctor data: $e');
+      print('خطأ في جلب بيانات الطبيب: $e');
     }
 
     // محاولة جلب بيانات المستخدم أولاً
@@ -246,11 +244,11 @@ class HomePage extends StatelessWidget {
         return userDoc;
       }
     } catch (e) {
-      print('Error fetching user data: $e');
+      print('خطأ في جلب بيانات المستخدم: $e');
     }
 
     // إذا لم يكن المستخدم موجودًا، جلب البيانات من مجموعة الأطباء
 
-    throw Exception('No user or doctor data found');
+    throw Exception('لم يتم العثور على بيانات مستخدم أو طبيب');
   }
 }

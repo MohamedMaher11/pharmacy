@@ -38,7 +38,8 @@ class MedicinePage extends StatelessWidget {
         );
       },
       child: Hero(
-        tag: 'medicine-${medicine}',
+        tag:
+            'medicine-${medicine.name}', // تعديل هنا لاستخدام اسم الدواء بشكل صحيح
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,

@@ -40,3 +40,26 @@ String getFriendlyErrorMessage(String error) {
     return 'An unknown error occurred. Please try again.';
   }
 }
+
+Widget buildTextFieldDoctor({
+  required TextEditingController controller,
+  required String label,
+  String? Function(String?)? validator,
+  bool obscureText = false,
+  Widget? suffixIcon,
+  TextInputType keyboardType = TextInputType.text,
+}) {
+  return TextFormField(
+    controller: controller,
+    obscureText: obscureText,
+    keyboardType: keyboardType,
+    decoration: InputDecoration(
+      labelText: label,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      suffixIcon: suffixIcon,
+    ),
+    validator: validator,
+  );
+}

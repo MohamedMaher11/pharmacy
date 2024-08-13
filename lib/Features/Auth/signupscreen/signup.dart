@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart'; // أضف هذه السطر
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/views/Home.dart';
+import 'package:hamo_pharmacy/gen/assets.gen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -47,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: Text('تسجيل حساب'),
         backgroundColor: Colors.orange,
       ),
       body: BlocListener<SignupCubit, SignupState>(
@@ -68,19 +70,19 @@ class _SignupScreenState extends State<SignupScreen> {
             child: ListView(
               children: [
                 Text(
-                  'Create your account',
-                  style: TextStyle(
+                  'أنشئ حسابك',
+                  style: GoogleFonts.cairo(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue[800],
                   ),
                 ),
                 SizedBox(height: 16),
-                _buildTextField(_emailController, 'Email'),
+                _buildTextField(_emailController, 'البريد الإلكتروني'),
                 SizedBox(height: 16),
                 _buildTextField(
                   _passwordController,
-                  'Password',
+                  'كلمة المرور',
                   obscureText: _obscureText,
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -90,12 +92,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-                _buildTextField(_nameController, 'Name'),
+                _buildTextField(_nameController, 'الاسم'),
                 SizedBox(height: 16),
                 _buildProfileImagePicker(),
                 SizedBox(height: 32),
                 SizedBox(
-                  width: 370,
+                  width: double.infinity, // تعديل هنا
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 16),
@@ -106,34 +108,43 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     onPressed: () => _signUp(context),
                     child: Text(
-                      'Sign Up',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      'تسجيل',
+                      style: GoogleFonts.cairo(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/signup_doctor');
-                  },
-                  child: Text(
-                    'Sign up as Doctor',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue,
+                Align(
+                  alignment: Alignment.center, // تعديل هنا
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/signup_doctor');
+                    },
+                    child: Text(
+                      'تسجيل كطبيب',
+                      style: GoogleFonts.cairo(
+                        fontSize: 18,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, '/sign_in');
-                  },
-                  child: Text(
-                    'Already have an account? Sign In',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue[800],
+                Align(
+                  alignment: Alignment.center, // تعديل هنا
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, '/sign_in');
+                    },
+                    child: Text(
+                      'لديك حساب بالفعل؟ تسجيل الدخول',
+                      style: GoogleFonts.cairo(
+                        fontSize: 18,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -163,12 +174,12 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your $label';
-        } else if (label == 'Email' &&
+          return 'يرجى إدخال $label';
+        } else if (label == 'البريد الإلكتروني' &&
             !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-          return 'Please enter a valid email address';
-        } else if (label == 'Password' && value.length < 6) {
-          return 'Password must be at least 6 characters';
+          return 'يرجى إدخال بريد إلكتروني صحيح';
+        } else if (label == 'كلمة المرور' && value.length < 6) {
+          return 'يجب أن تكون كلمة المرور على الأقل 6 أحرف';
         }
         return null;
       },
@@ -182,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
         radius: 50,
         backgroundImage: _profileImage != null
             ? FileImage(File(_profileImage!.path))
-            : AssetImage('assets/images/default_profile.png') as ImageProvider,
+            : AssetImage(Assets.user.path) as ImageProvider,
         child: _profileImage == null
             ? Icon(Icons.camera_alt, size: 50, color: Colors.grey[800])
             : null,
@@ -192,13 +203,13 @@ class _SignupScreenState extends State<SignupScreen> {
 
   String _getFriendlyErrorMessage(String error) {
     if (error.contains('email-already-in-use')) {
-      return 'This email is already in use.';
+      return 'البريد الإلكتروني هذا مستخدم بالفعل.';
     } else if (error.contains('weak-password')) {
-      return 'The password is too weak.';
+      return 'كلمة المرور ضعيفة جداً.';
     } else if (error.contains('invalid-email')) {
-      return 'The email address is not valid.';
+      return 'عنوان البريد الإلكتروني غير صالح.';
     } else {
-      return 'An unknown error occurred. Please try again.';
+      return 'حدث خطأ غير معروف. يرجى المحاولة مرة أخرى.';
     }
   }
 
@@ -211,14 +222,14 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               Icon(Icons.error, color: Colors.red),
               SizedBox(width: 8),
-              Text('Error'),
+              Text('خطأ'),
             ],
           ),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: Text('موافق'),
             ),
           ],
         );

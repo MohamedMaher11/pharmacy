@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _verificationId;
 
   SignupCubit() : super(SignupInitial());
 
@@ -80,45 +79,6 @@ class SignupCubit extends Cubit<SignupState> {
     } catch (e) {
       print('Error saving user data: $e');
       throw Exception('Failed to save user data');
-    }
-  }
-
-  void signupWithPhone(String phoneNumber) async {
-    emit(SignupLoading());
-    try {
-      await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await _auth.signInWithCredential(credential);
-          emit(SignupSuccess());
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          emit(SignupFailure(e.message ?? 'Verification failed'));
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          _verificationId = verificationId;
-          emit(SignupCodeSent());
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          _verificationId = verificationId;
-        },
-      );
-    } catch (e) {
-      emit(SignupFailure(e.toString()));
-    }
-  }
-
-  void verifyPhoneCode(String smsCode) async {
-    emit(SignupLoading());
-    try {
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: _verificationId!,
-        smsCode: smsCode,
-      );
-      await _auth.signInWithCredential(credential);
-      emit(SignupSuccess());
-    } catch (e) {
-      emit(SignupFailure(e.toString()));
     }
   }
 

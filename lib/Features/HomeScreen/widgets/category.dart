@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart'; // استيراد الـ models
+import 'package:hamo_pharmacy/Model/medecinmodel.dart'; // استيراد النماذج
 import 'package:hamo_pharmacy/Features/AllCategory/allcategory.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/medecin.dart';
 
@@ -11,17 +11,17 @@ Widget buildHealthCategorySection(BuildContext context) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Health Category',
+          Text('فئة الصحة',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           GestureDetector(
             onTap: () {
-              // Navigate to the all categories page
+              // الانتقال إلى صفحة جميع الفئات
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AllCategoriesPage()),
               );
             },
-            child: Text('View all', style: TextStyle(color: Colors.blue)),
+            child: Text('عرض الكل', style: TextStyle(color: Colors.blue)),
           ),
         ],
       ),
@@ -79,17 +79,17 @@ Widget _buildHealthCategoryCard(Category category, BuildContext context) {
 // وظيفة للحصول على الأيقونة المناسبة بناءً على اسم الفئة
 IconData _getCategoryIcon(String categoryName) {
   switch (categoryName) {
-    case 'Cough':
+    case 'السعال':
       return FontAwesomeIcons.syringe;
-    case 'Pain Relief':
+    case 'تخفيف الألم':
       return FontAwesomeIcons.pills;
-    case 'Skin Care':
+    case 'العناية بالبشرة':
       return FontAwesomeIcons.soap;
-    case 'Headache':
+    case 'الصداع':
       return FontAwesomeIcons.headSideVirus;
-    case 'Fever':
+    case 'الحمى':
       return FontAwesomeIcons.temperatureHigh;
-    case 'Weakness':
+    case 'الضعف':
       return FontAwesomeIcons.tired;
     default:
       return FontAwesomeIcons.pills; // افتراضي

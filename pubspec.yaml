@@ -10,23 +10,27 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^5.2.1
-  firebase_core:
-  firebase_auth:
-  firebase_storage:
-  flutter_bloc:
-  device_preview:
-  provider:
+  firebase_core: null
+  firebase_auth: null
+  firebase_storage: null
+  flutter_bloc: null
+  device_preview: null
+  provider: null
   intl_phone_number_input: ^0.7.0+2
-  smooth_page_indicator:
-  font_awesome_flutter:
+  smooth_page_indicator: null
+  font_awesome_flutter: null
   carousel_slider: ^5.0.0
   image_picker: ^1.1.2
+  intl: ^0.18.1
+  flutter_localizations:
+    sdk: flutter
+  google_fonts: ^6.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.2
-  flutter_gen_runner:
-  build_runner:
+  flutter_gen_runner: null
+  build_runner: null
 
 flutter:
   assets:
@@ -48,3 +52,5 @@ flutter_gen:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+flutter_intl:
+  enabled: true

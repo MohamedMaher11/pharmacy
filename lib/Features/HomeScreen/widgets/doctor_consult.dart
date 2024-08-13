@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/widgets/category.dart';
+import 'package:hamo_pharmacy/Features/Doctor/spicialtypage.dart';
 import 'package:hamo_pharmacy/gen/assets.gen.dart';
 
 Widget buildDoctorConsultationSection(BuildContext context) {
   return GestureDetector(
     onTap: () {
-      // الانتقال إلى صفحة الأقسام الطبية عند الضغط على الواجهة
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => buildHealthCategorySection(context)),
+        MaterialPageRoute(builder: (context) => SpecialtiesPage()),
       );
     },
     child: Container(
@@ -29,13 +27,13 @@ Widget buildDoctorConsultationSection(BuildContext context) {
       child: Row(
         children: [
           Image.asset(
-            Assets.doctor.path, // Add your doctor image in the assets directory
+            Assets.doctor.path,
             height: 40,
           ),
           SizedBox(width: 20),
           Expanded(
             child: Text(
-              'Need a consultation? Connect with our experienced doctors now.',
+              'هل تحتاج لاستشارة؟ تواصل مع أطبائنا ذوي الخبرة الآن.',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
