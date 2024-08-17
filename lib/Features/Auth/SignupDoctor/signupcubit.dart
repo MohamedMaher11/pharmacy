@@ -21,6 +21,9 @@ class SignupDoctorCubit extends Cubit<SignupDoctorState> {
     required String address,
     required String phone,
     XFile? profileImage,
+    required String education,
+    required String experience,
+    required String aboutMe,
   }) async {
     try {
       emit(SignupDoctorLoading());
@@ -53,6 +56,9 @@ class SignupDoctorCubit extends Cubit<SignupDoctorState> {
         'phone': phone,
         'imageUrl': imageUrl,
         'doctorId': userCredential.user!.uid,
+        'education': education,
+        'experience': experience,
+        'aboutMe': aboutMe,
       });
 
       emit(SignupDoctorSuccess());

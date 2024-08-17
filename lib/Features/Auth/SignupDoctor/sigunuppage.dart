@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hamo_pharmacy/Features/Auth/SignupDoctor/signupcubit.dart';
-import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:hamo_pharmacy/gen/assets.gen.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,6 +17,9 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _educationController = TextEditingController();
+  final TextEditingController _experienceController = TextEditingController();
+  final TextEditingController _aboutMeController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _selectedSpecialty = 'طب الأطفال'; // التخصص الافتراضي
@@ -53,6 +56,9 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             address: _addressController.text.trim(),
             phone: _phoneController.text.trim(),
             profileImage: _profileImage, // تمرير الصورة
+            education: _educationController.text.trim(),
+            experience: _experienceController.text.trim(),
+            aboutMe: _aboutMeController.text.trim(),
           );
     }
   }
@@ -134,7 +140,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('التسجيل كطبيب'),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.deepPurple,
       ),
       body: BlocListener<SignupDoctorCubit, SignupDoctorState>(
         listener: (context, state) {
@@ -155,7 +161,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
+                    color: Colors.deepPurple,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -189,7 +195,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                 SizedBox(height: 16),
                 buildTextFieldDoctor(
                   controller: _addressController,
-                  label: 'العنوان',
+                  label: 'العنوان (الشارع, المدينة)',
                   validator: (value) => _validateNotEmpty(value, 'العنوان'),
                 ),
                 SizedBox(height: 16),
@@ -200,6 +206,27 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                   keyboardType: TextInputType.phone,
                 ),
                 SizedBox(height: 16),
+                buildTextFieldDoctor(
+                  controller: _educationController,
+                  label: 'التعليم',
+                  validator: (value) => _validateNotEmpty(value, 'التعليم'),
+                ),
+                SizedBox(height: 16),
+                buildTextFieldDoctor(
+                  controller: _experienceController,
+                  label: 'الخبرة',
+                  validator: (value) => _validateNotEmpty(value, 'الخبرة'),
+                ),
+                SizedBox(height: 16),
+                buildTextFieldDoctor(
+                  controller: _aboutMeController,
+                  label: 'عنّي',
+                  validator: (value) => _validateNotEmpty(value, 'عنّي'),
+                  // ignore: deprecated_member_use
+                  maxLines: 5,
+                  keyboardType: TextInputType.multiline,
+                ),
+                SizedBox(height: 16),
                 _buildProfileImagePicker(),
                 SizedBox(height: 32),
                 SizedBox(
@@ -207,7 +234,7 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.redAccent,
+                      backgroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -238,10 +265,10 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
       items: <String>[
         'طب الأطفال',
         'الطب الباطني',
-        'النسائية والتوليد',
+        'أمراض النساء',
         'أمراض القلب',
-        'الأمراض الجلدية',
-        'الأعصاب',
+        'أمراض الجلدية',
+        'أمراض الأعصاب',
         // أضف المزيد من التخصصات هنا
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -278,9 +305,10 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             radius: 50,
             backgroundImage: _profileImage != null
                 ? FileImage(File(_profileImage!.path))
-                : AssetImage(Assets.user.path) as ImageProvider,
+                : null,
             child: _profileImage == null
-                ? Icon(Icons.camera_alt, size: 50, color: Colors.grey[800])
+                ? Icon(FontAwesomeIcons.camera,
+                    size: 50, color: Colors.grey[800])
                 : null,
           ),
         ),
@@ -300,6 +328,8 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
     Widget? suffixIcon,
     required String? Function(String?) validator,
     TextInputType keyboardType = TextInputType.text,
+    Widget? prefixIcon,
+    int maxLines = 1,
   }) {
     return TextFormField(
       controller: controller,
@@ -310,9 +340,16 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon != null
+            ? IconTheme(
+                data: IconThemeData(color: Colors.deepPurple),
+                child: prefixIcon,
+              )
+            : null,
       ),
       validator: validator,
       keyboardType: keyboardType,
+      maxLines: maxLines,
     );
   }
 }

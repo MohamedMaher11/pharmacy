@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
 import 'package:hamo_pharmacy/core/functions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('تسجيل الدخول'),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.deepPurple,
       ),
       body: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
@@ -103,7 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -112,6 +113,22 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: Text(
                       'تسجيل الدخول',
                       style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.center, // تعديل هنا
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                    child: Text(
+                      'ليس لدى حساب .التسجيل',
+                      style: GoogleFonts.cairo(
+                        fontSize: 18,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ),

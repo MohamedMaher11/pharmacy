@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart'; // أضف هذه السطر
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/views/Home.dart';
@@ -50,7 +51,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('تسجيل حساب'),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.deepPurple,
       ),
       body: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
@@ -101,7 +102,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -137,7 +138,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   alignment: Alignment.center, // تعديل هنا
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/sign_in');
+                      Navigator.pushNamed(context, '/sign_in');
                     },
                     child: Text(
                       'لديك حساب بالفعل؟ تسجيل الدخول',
@@ -191,11 +192,10 @@ class _SignupScreenState extends State<SignupScreen> {
       onTap: _pickImage,
       child: CircleAvatar(
         radius: 50,
-        backgroundImage: _profileImage != null
-            ? FileImage(File(_profileImage!.path))
-            : AssetImage(Assets.user.path) as ImageProvider,
+        backgroundImage:
+            _profileImage != null ? FileImage(File(_profileImage!.path)) : null,
         child: _profileImage == null
-            ? Icon(Icons.camera_alt, size: 50, color: Colors.grey[800])
+            ? Icon(FontAwesomeIcons.camera, size: 50, color: Colors.grey[800])
             : null,
       ),
     );
