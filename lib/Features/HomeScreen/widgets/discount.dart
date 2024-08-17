@@ -15,10 +15,9 @@ Widget buildDiscountCarousel() {
         initialPage: 0,
       ),
       items: [
-        _buildDiscountCard('خصم الصيف', 'حتى 70% خصم', Assets.offer.path),
-        _buildDiscountCard(
-            'عرض فلاش', 'اشترِ 1 واحصل على 1 مجاناً', Assets.offer.path),
-        _buildDiscountCard('عرض محدود', 'توصيل مجاني', Assets.offer.path),
+        _buildDiscountCard('', '', Assets.offer.path),
+        _buildDiscountCard('', '', Assets.offer.path),
+        _buildDiscountCard('', '', Assets.offer.path),
       ],
     ),
   );
@@ -47,12 +46,12 @@ Widget _buildDiscountCard(String title, String subtitle, String imagePath) {
           Text(
             title,
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
           SizedBox(height: 8),
           Text(
             subtitle,
-            style: TextStyle(color: Colors.white70),
+            style: TextStyle(color: Colors.black),
           ),
         ],
       ),

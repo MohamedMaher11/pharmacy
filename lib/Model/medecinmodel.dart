@@ -12,6 +12,15 @@ class Medicine {
     required this.price,
     required this.description,
   });
+
+  factory Medicine.fromMap(Map<String, dynamic> map) {
+    return Medicine(
+      name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      price: map['price']?.toDouble() ?? 0.0,
+      description: map['description'] ?? '',
+    );
+  }
 }
 
 class Category {

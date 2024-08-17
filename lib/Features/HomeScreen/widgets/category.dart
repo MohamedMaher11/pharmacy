@@ -65,7 +65,7 @@ Widget _buildHealthCategoryCard(Category category, BuildContext context) {
           // استخدام الأيقونة المناسبة لكل فئة
           Icon(
             _getCategoryIcon(category.name),
-            color: Colors.orange,
+            color: Colors.deepPurple,
             size: 40,
           ),
           SizedBox(height: 8),

@@ -148,7 +148,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.yellow[700]!, Colors.orange[700]!],
+                        colors: [Colors.yellow[700]!, Colors.deepPurple[700]!],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -173,7 +173,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                   ),
                   Positioned(
                     top: 30,
-                    right: 20,
+                    left: 20,
                     child: IconButton(
                       icon: Icon(
                         isFavorited
@@ -272,7 +272,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                         label: Text('أضف إلى السلة'),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Colors.orange[700],
+                          backgroundColor: Colors.deepPurple[700],
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           shape: RoundedRectangleBorder(

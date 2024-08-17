@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hamo_pharmacy/Features/Doctor/All_doctors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SpecialtiesPage extends StatefulWidget {
   @override
@@ -7,13 +8,37 @@ class SpecialtiesPage extends StatefulWidget {
 }
 
 class _SpecialtiesPageState extends State<SpecialtiesPage> {
-  final List<String> _specialties = [
-    'طب الأطفال',
-    'الطب الباطني',
-    'أمراض النساء',
-    'أمراض القلب',
-    'أمراض الجلدية',
-    'أمراض الأعصاب',
+  final List<Map<String, dynamic>> _specialties = [
+    {
+      'name': 'طب الأطفال',
+      'icon': FontAwesomeIcons.child,
+      'color': Colors.pink
+    },
+    {
+      'name': 'الطب الباطني',
+      'icon': FontAwesomeIcons.hospital,
+      'color': Colors.blue
+    },
+    {
+      'name': 'أمراض النساء',
+      'icon': FontAwesomeIcons.female,
+      'color': Colors.red
+    },
+    {
+      'name': 'أمراض القلب',
+      'icon': FontAwesomeIcons.heart,
+      'color': Colors.deepPurple
+    },
+    {
+      'name': 'أمراض الجلدية',
+      'icon': FontAwesomeIcons.spa,
+      'color': Colors.teal
+    },
+    {
+      'name': 'أمراض الأعصاب',
+      'icon': FontAwesomeIcons.brain,
+      'color': Colors.deepPurple
+    },
   ];
 
   String _searchQuery = '';
@@ -23,7 +48,7 @@ class _SpecialtiesPageState extends State<SpecialtiesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('التخصصات'),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Padding(
@@ -53,13 +78,14 @@ class _SpecialtiesPageState extends State<SpecialtiesPage> {
     );
   }
 
-  List<String> get _filteredSpecialties {
+  List<Map<String, dynamic>> get _filteredSpecialties {
     if (_searchQuery.isEmpty) {
       return _specialties;
     }
     return _specialties
-        .where((specialty) =>
-            specialty.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .where((specialty) => specialty['name']
+            .toLowerCase()
+            .contains(_searchQuery.toLowerCase()))
         .toList();
   }
 
@@ -83,39 +109,53 @@ class _SpecialtiesPageState extends State<SpecialtiesPage> {
     );
   }
 
-  Widget _buildSpecialtyCard(BuildContext context, String specialty) {
+  Widget _buildSpecialtyCard(
+      BuildContext context, Map<String, dynamic> specialty) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AllDoctorsPage(specialty: specialty),
+            builder: (context) => AllDoctorsPage(specialty: specialty['name']),
           ),
         );
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          gradient: LinearGradient(
+            colors: [specialty['color'].withOpacity(0.8), specialty['color']],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 10,
               offset: Offset(0, 3),
             ),
           ],
         ),
-        child: Center(
-          child: Text(
-            specialty,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueGrey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              specialty['icon'],
+              size: 40,
+              color: Colors.white,
             ),
-          ),
+            SizedBox(height: 10),
+            Text(
+              specialty['name'],
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

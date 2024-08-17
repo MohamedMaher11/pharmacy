@@ -6,8 +6,8 @@ Widget buildOffersSection() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      _buildOfferCard('50% Off', 'ORDER TODAY', Assets.doctor.path),
-      _buildOfferCard('Free on\nFirst Order', 'HOME DELIVERY', ''),
+      _buildOfferCard('50 % خصم', 'اطلب الان', ""),
+      _buildOfferCard('مجانا\nلاول طلب ', 'توصيل للمنزل', ''),
     ],
   );
 }
