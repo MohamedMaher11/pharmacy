@@ -7,7 +7,7 @@ class AllCategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('All Categories'),
+        title: Text('كل الاقسام'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
