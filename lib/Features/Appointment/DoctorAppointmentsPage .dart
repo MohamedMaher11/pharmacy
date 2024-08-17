@@ -11,7 +11,7 @@ class DoctorAppointmentsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('المواعيد'),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.deepPurple,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
