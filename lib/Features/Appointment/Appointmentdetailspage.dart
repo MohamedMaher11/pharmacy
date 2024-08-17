@@ -213,11 +213,12 @@ class AppointmentDetailPage extends StatelessWidget {
                 FirebaseFirestore.instance
                     .collection('appointments')
                     .doc(appointment.id)
-                    .update({'status': 'Cancelled'}).then((_) {
+                    .delete()
+                    .then((_) {
                   Navigator.pop(context); // Close the dialog
                   Navigator.pop(context); // Go back to the appointments list
                 }).catchError((error) {
-                  print('فشل في إلغاء الموعد: $error');
+                  print('فشل في حذف الموعد: $error');
                 });
               },
               child: Text('حذف', style: TextStyle(color: Colors.red)),
