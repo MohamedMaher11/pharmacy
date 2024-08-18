@@ -96,7 +96,7 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       ChatScreen(doctor: widget.doctor)),
-                            );
+                            ); //lightpurpelcolor//lightblue
                           },
                           child: Text('Chat')),
 
