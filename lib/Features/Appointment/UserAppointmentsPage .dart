@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hamo_pharmacy/Features/Appointment/Appointmentdetailspage.dart';
+import 'package:intl/intl.dart'; // لإضافة تنسيق التاريخ والوقت
 
 class UserAppointmentsPage extends StatefulWidget {
   @override
@@ -159,9 +160,9 @@ class _UserAppointmentsPageState extends State<UserAppointmentsPage> {
             Text('العنوان: $address', style: TextStyle(fontSize: 14)),
             Text('الهاتف: $phone', style: TextStyle(fontSize: 14)),
             Text('الحالة: $condition', style: TextStyle(fontSize: 14)),
-            Text('بداية: ${appointmentStart.toLocal()}',
+            Text('بداية: ${DateFormat.jm().format(appointmentStart)}',
                 style: TextStyle(fontSize: 14)),
-            Text('نهاية: ${appointmentEnd.toLocal()}',
+            Text('نهاية: ${DateFormat.jm().format(appointmentEnd)}',
                 style: TextStyle(fontSize: 14)),
             SizedBox(height: 8),
             Text(
@@ -174,15 +175,20 @@ class _UserAppointmentsPageState extends State<UserAppointmentsPage> {
             ),
           ],
         ),
-        trailing: IconButton(
-          icon: Icon(FontAwesomeIcons.remove, color: Colors.red),
-          onPressed: () {
-            if (status == 'Completed') {
-              _confirmDeleteAppointment(context, appointment.id);
-            } else {
-              _deleteAppointment(context, appointment.id);
-            }
-          },
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.remove, color: Colors.red),
+              onPressed: () {
+                if (status == 'Completed') {
+                  _confirmDeleteAppointment(context, appointment.id);
+                } else {
+                  _deleteAppointment(context, appointment.id);
+                }
+              },
+            ),
+          ],
         ),
         onTap: () {
           Navigator.push(

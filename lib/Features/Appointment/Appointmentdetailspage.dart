@@ -1,5 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hamo_pharmacy/Features/Appointment/widgets/buildanimtedbutton.dart';
+import 'package:hamo_pharmacy/Features/Appointment/widgets/buildpdfrow.dart';
+import 'package:hamo_pharmacy/Features/Appointment/widgets/buildrow.dart';
+import 'package:intl/intl.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppointmentDetailPage extends StatelessWidget {
   final QueryDocumentSnapshot appointment;
@@ -8,7 +16,6 @@ class AppointmentDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final doctorId = appointment['doctorId'];
     final name = appointment['name'];
     final address = appointment['address'];
     final phone = appointment['phone'];
@@ -22,174 +29,112 @@ class AppointmentDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('تفاصيل الموعد'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.deepPurple,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance
-              .collection('doctors')
-              .doc(doctorId)
-              .get(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-
-            if (!snapshot.hasData || snapshot.data == null) {
-              return Center(child: Text('معلومات الطبيب غير متوفرة.'));
-            }
-
-            final doctorData = snapshot.data!;
-            final doctorName = doctorData['name'] ?? 'طبيب غير معروف';
-            final doctorImageUrl = doctorData['imageUrl'] ?? '';
-
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.blueAccent,
-                      backgroundImage: doctorImageUrl.isNotEmpty
-                          ? NetworkImage(doctorImageUrl)
-                          : null,
-                      child: doctorImageUrl.isEmpty
-                          ? Icon(Icons.person, size: 50, color: Colors.white)
-                          : null,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      doctorName,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  _buildInfoCard(
-                    icon: Icons.person,
-                    label: 'اسم المريض',
-                    value: name,
-                  ),
-                  _buildInfoCard(
-                    icon: Icons.location_on,
-                    label: 'العنوان',
-                    value: address,
-                  ),
-                  _buildInfoCard(
-                    icon: Icons.phone,
-                    label: 'رقم الهاتف',
-                    value: phone,
-                  ),
-                  _buildInfoCard(
-                    icon: Icons.health_and_safety,
-                    label: 'الحالة',
-                    value: condition,
-                  ),
-                  _buildInfoCard(
-                    icon: Icons.access_time,
-                    label: 'موعد البداية',
-                    value: '${appointmentStart.toLocal()}',
-                  ),
-                  _buildInfoCard(
-                    icon: Icons.access_time,
-                    label: 'موعد النهاية',
-                    value: '${appointmentEnd.toLocal()}',
-                  ),
-                  SizedBox(height: 20),
-                  Center(
-                    child: Text(
-                      'الحالة: $status',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: status == 'Booked' ? Colors.green : Colors.red,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        _showDeleteConfirmationDialog(context);
-                      },
-                      icon: Icon(Icons.delete),
-                      label: Text('حذف الموعد'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        textStyle: TextStyle(fontSize: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back),
-                      label: Text('رجوع'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        textStyle: TextStyle(fontSize: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
                   ),
                 ],
               ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInfoCard(
-      {required IconData icon, required String label, required String value}) {
-    return Card(
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            Icon(icon, size: 28, color: Colors.blueAccent),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'روشتة طبية',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'تفاصيل الموعد',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    SizedBox(height: 20),
+                    buildInfoRow('اسم المريض  ', name, Icons.person),
+                    buildInfoRow('العنوان  ', address, Icons.location_on),
+                    buildInfoRow('رقم الهاتف  ', phone, Icons.phone),
+                    buildInfoRow(
+                        'الحالة  ', condition, Icons.health_and_safety),
+                    buildInfoRow(
+                      'التوقيت  ',
+                      '${DateFormat('d/M/yyyy').format(appointmentStart)} من الساعة ${DateFormat('h:mm a', 'ar').format(appointmentStart)} إلى الساعة ${DateFormat('h:mm a', 'ar').format(appointmentEnd)}',
+                      Icons.access_time,
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: Text(
+                        'الحالة:   $status',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: status == 'Booked' ? Colors.green : Colors.red,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Center(
+                      child: Text(
+                        'تاريخ العرض:   ${DateFormat('d/M/yyyy').format(DateTime.now())}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildAnimatedButton(
+                    context,
+                    icon: FontAwesomeIcons.print,
+                    color: Colors.blue,
+                    label: 'طباعة',
+                    onPressed: () {
+                      _printAppointment(context);
+                    },
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    value,
-                    style: TextStyle(fontSize: 16),
+                  buildAnimatedButton(
+                    context,
+                    icon: FontAwesomeIcons.remove,
+                    color: Colors.red,
+                    label: 'حذف',
+                    onPressed: () {
+                      _showDeleteConfirmationDialog(context);
+                    },
                   ),
                 ],
               ),
@@ -197,41 +142,116 @@ class AppointmentDetailPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _printAppointment(BuildContext context) async {
+    final pdf = pw.Document();
+    final arabicFont = await PdfGoogleFonts.amiriRegular();
+
+    pdf.addPage(
+      pw.Page(
+        margin: pw.EdgeInsets.all(15),
+        build: (pw.Context context) {
+          return pw.Directionality(
+            textDirection: pw.TextDirection.rtl,
+            child: pw.Container(
+              padding: pw.EdgeInsets.all(16),
+              decoration: pw.BoxDecoration(
+                border: pw.Border.all(color: PdfColors.grey, width: 2),
+                borderRadius: pw.BorderRadius.circular(12),
+              ),
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Center(
+                    child: pw.Text(
+                      'روشتة طبية',
+                      style: pw.TextStyle(
+                        fontSize: 24,
+                        fontWeight: pw.FontWeight.bold,
+                        font: arabicFont,
+                        color: PdfColors.deepPurple,
+                      ),
+                    ),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Text(
+                    'تفاصيل الموعد:',
+                    style: pw.TextStyle(
+                      fontSize: 20,
+                      fontWeight: pw.FontWeight.bold,
+                      font: arabicFont,
+                      color: PdfColors.deepPurple,
+                    ),
+                  ),
+                  pw.SizedBox(height: 10),
+                  buildPdfRow('اسم المريض  ', appointment['name'], arabicFont),
+                  buildPdfRow('الهاتف  ', appointment['phone'], arabicFont),
+                  buildPdfRow('العنوان  ', appointment['address'], arabicFont),
+                  buildPdfRow(
+                    'التوقيت  ',
+                    '${DateFormat('d/M/yyyy').format(appointment['appointmentStart'].toDate())} من الساعة ${DateFormat('h:mm a', 'ar').format(appointment['appointmentStart'].toDate())} إلى الساعة ${DateFormat('h:mm a', 'ar').format(appointment['appointmentEnd'].toDate())}',
+                    arabicFont,
+                  ),
+                  pw.SizedBox(height: 40),
+                  pw.Center(
+                    child: pw.Text(
+                      'أسأل الله العظيم رب العرش العظيم أن يشفيك.',
+                      style: pw.TextStyle(
+                        fontSize: 18,
+                        fontWeight: pw.FontWeight.bold,
+                        font: arabicFont,
+                        color: PdfColors.deepPurple,
+                      ),
+                    ),
+                  ),
+                  pw.SizedBox(height: 30),
+                  buildPdfRow('نصائح للشفاء:', '', arabicFont),
+                  buildPdfRow('• التزم بالوقت المحدد للموعد.', '', arabicFont),
+                  buildPdfRow(
+                      '• احرص على الهدوء أثناء انتظارك.', '', arabicFont),
+                  buildPdfRow(
+                      '• تذكر أن الشفاء بيد الله، واتبع نصائح الطبيب بدقة.',
+                      '',
+                      arabicFont),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => pdf.save(),
     );
   }
 
   void _showDeleteConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('تأكيد الحذف'),
-          content: Text('هل أنت متأكد أنك تريد حذف هذا الموعد؟'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                FirebaseFirestore.instance
-                    .collection('appointments')
-                    .doc(appointment.id)
-                    .delete()
-                    .then((_) {
-                  Navigator.pop(context); // Close the dialog
-                  Navigator.pop(context); // Go back to the appointments list
-                }).catchError((error) {
-                  print('فشل في حذف الموعد: $error');
-                });
-              },
-              child: Text('حذف', style: TextStyle(color: Colors.red)),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the dialog
-              },
-              child: Text('إلغاء'),
-            ),
-          ],
-        );
-      },
+      builder: (context) => AlertDialog(
+        title: Text('تأكيد الحذف'),
+        content: Text('هل أنت متأكد أنك تريد حذف هذا الموعد؟'),
+        actions: [
+          TextButton(
+            child: Text('إلغاء'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('حذف'),
+            onPressed: () {
+              appointment.reference.delete().then((_) {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }
