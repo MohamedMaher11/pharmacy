@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamo_pharmacy/Features/Auth/Signupcubit/singupcubit.dart';
 import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -45,12 +46,14 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _signIn(BuildContext context) {
+  void _signIn(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<SignupCubit>().signInWithEmail(
             _emailController.text.trim(),
             _passwordController.text.trim(),
           );
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isLoggedIn', true);
     }
   }
 
