@@ -30,7 +30,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
-        backgroundColor: Colors.blueGrey[800],
+        backgroundColor: Colors.deepPurple,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore
