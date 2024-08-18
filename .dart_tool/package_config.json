@@ -20,6 +20,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "archive",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "args",
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.5.0",
       "packageUri": "lib/",
@@ -30,6 +36,18 @@
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "barcode",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/barcode-2.2.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "bidi",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/bidi-2.0.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "bloc",
@@ -416,6 +434,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "image",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/image-4.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "image_picker",
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-1.1.2",
       "packageUri": "lib/",
@@ -632,6 +656,18 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "pdf",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/pdf-3.11.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "pdf_widget_wrapper",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/pdf_widget_wrapper-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "petitparser",
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
       "packageUri": "lib/",
@@ -656,6 +692,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "printing",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/printing-5.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "provider",
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2",
       "packageUri": "lib/",
@@ -672,6 +714,12 @@
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/pubspec_parse-1.3.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "qr",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/qr-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
     },
     {
       "name": "shared_preferences",
@@ -866,7 +914,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-08-13T15:00:50.000663Z",
+  "generated": "2024-08-18T21:53:43.397594Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
