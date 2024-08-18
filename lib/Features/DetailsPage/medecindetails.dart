@@ -33,17 +33,24 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
     }
   }
 
-  Future<void> _addToCart(BuildContext context) async {
-    final userId = _auth.currentUser?.uid;
-    if (userId != null) {
-      final cartCollection = _firestore.collection('cart');
-      final querySnapshot = await cartCollection
-          .where('userId', isEqualTo: userId)
-          .where('name', isEqualTo: widget.medicine.name)
-          .get();
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
-      if (querySnapshot.docs.isEmpty) {
-        // العنصر غير موجود في السلة، قم بإضافته
+  Future<void> _updateCart(bool add) async {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null) return;
+
+    final cartCollection = _firestore.collection('cart');
+    final querySnapshot = await cartCollection
+        .where('userId', isEqualTo: userId)
+        .where('name', isEqualTo: widget.medicine.name)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+      if (add) {
         try {
           await cartCollection.add({
             'userId': userId,
@@ -53,46 +60,31 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
             'description': widget.medicine.description,
             'quantity': _quantity,
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('${widget.medicine.name} أضيف إلى السلة')),
-          );
+          _showSnackBar('${widget.medicine.name} أضيف إلى السلة');
         } catch (e) {
           print('فشل في إضافة إلى السلة: $e');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('فشل في إضافة إلى السلة')),
-          );
+          _showSnackBar('فشل في إضافة إلى السلة');
         }
-      } else {
-        // العنصر موجود في السلة، قم بتحديث الكمية والسعر
-        final docId = querySnapshot.docs.first.id;
-        final doc = querySnapshot.docs.first;
+      }
+    } else {
+      final docId = querySnapshot.docs.first.id;
+      final doc = querySnapshot.docs.first;
 
-        try {
-          final existingData = doc.data() as Map<String, dynamic>;
-          final existingQuantity = existingData['quantity'] ?? 0;
-          final existingPrice = existingData['price'] ?? 0.0;
+      try {
+        final existingData = doc.data() as Map<String, dynamic>;
+        final existingQuantity = existingData['quantity'] ?? 0;
+        final newQuantity = existingQuantity + _quantity;
+        final newPrice = widget.medicine.price * newQuantity;
 
-          // تحديث الكمية والسعر بناءً على الكمية المضافة فقط
-          final newQuantity = existingQuantity + _quantity;
-          final newPrice = widget.medicine.price * newQuantity;
+        await cartCollection.doc(docId).update({
+          'quantity': newQuantity,
+          'price': newPrice,
+        });
 
-          await cartCollection.doc(docId).update({
-            'quantity': newQuantity,
-            'price': widget.medicine.price *
-                newQuantity, // حساب السعر بناءً على الكمية الجديدة
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content:
-                    Text('${widget.medicine.name} تم تحديث الكمية في السلة')),
-          );
-        } catch (e) {
-          print('فشل في تحديث السلة: $e');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('فشل في تحديث السلة')),
-          );
-        }
+        _showSnackBar('${widget.medicine.name} تم تحديث الكمية في السلة');
+      } catch (e) {
+        print('فشل في تحديث السلة: $e');
+        _showSnackBar('فشل في تحديث السلة');
       }
     }
   }
@@ -103,32 +95,30 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
     });
 
     final userId = _auth.currentUser?.uid;
-    if (userId != null) {
-      final favoritesCollection = _firestore.collection('favorites');
-      final querySnapshot = await favoritesCollection
-          .where('userId', isEqualTo: userId)
-          .where('name', isEqualTo: widget.medicine.name)
-          .get();
+    if (userId == null) return;
 
+    final favoritesCollection = _firestore.collection('favorites');
+    final querySnapshot = await favoritesCollection
+        .where('userId', isEqualTo: userId)
+        .where('name', isEqualTo: widget.medicine.name)
+        .get();
+
+    try {
       if (isFavorited && querySnapshot.docs.isEmpty) {
-        try {
-          await favoritesCollection.add({
-            'userId': userId,
-            'name': widget.medicine.name,
-            'imageUrl': widget.medicine.imageUrl,
-            'price': widget.medicine.price,
-            'description': widget.medicine.description,
-          });
-        } catch (e) {
-          print('فشل في إضافة إلى المفضلة: $e');
-        }
+        await favoritesCollection.add({
+          'userId': userId,
+          'name': widget.medicine.name,
+          'imageUrl': widget.medicine.imageUrl,
+          'price': widget.medicine.price,
+          'description': widget.medicine.description,
+        });
       } else if (!isFavorited && querySnapshot.docs.isNotEmpty) {
-        try {
-          await favoritesCollection.doc(querySnapshot.docs.first.id).delete();
-        } catch (e) {
-          print('فشل في إزالة من المفضلة: $e');
-        }
+        await favoritesCollection.doc(querySnapshot.docs.first.id).delete();
       }
+    } catch (e) {
+      print(isFavorited
+          ? 'فشل في إضافة إلى المفضلة: $e'
+          : 'فشل في إزالة من المفضلة: $e');
     }
   }
 
@@ -198,10 +188,11 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: Offset(0, 4))
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
                 ],
               ),
               child: Column(
@@ -210,23 +201,27 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                   Text(
                     widget.medicine.name,
                     style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueGrey[800]),
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey[800],
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     '\$${(widget.medicine.price * _quantity).toStringAsFixed(2)}',
                     style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.blue[800],
-                        fontWeight: FontWeight.bold),
+                      fontSize: 24,
+                      color: Colors.blue[800],
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     widget.medicine.description,
                     style: TextStyle(
-                        fontSize: 16, color: Colors.black.withOpacity(0.7)),
+                      fontSize: 16,
+                      color: Colors.black.withOpacity(0.7),
+                    ),
                   ),
                   SizedBox(height: 20),
                   Row(
@@ -234,17 +229,10 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
+                          _buildQuantityButton(
+                            icon: FontAwesomeIcons.minus,
+                            color: Colors.red[600]!,
                             onTap: _decreaseQuantity,
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[200],
-                              ),
-                              child: Icon(FontAwesomeIcons.minus,
-                                  size: 24, color: Colors.red[600]),
-                            ),
                           ),
                           SizedBox(width: 10),
                           Text(
@@ -252,22 +240,15 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                             style: TextStyle(fontSize: 22),
                           ),
                           SizedBox(width: 10),
-                          GestureDetector(
+                          _buildQuantityButton(
+                            icon: FontAwesomeIcons.plus,
+                            color: Colors.blue[800]!,
                             onTap: _increaseQuantity,
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[200],
-                              ),
-                              child: Icon(FontAwesomeIcons.plus,
-                                  size: 24, color: Colors.blue[800]),
-                            ),
                           ),
                         ],
                       ),
                       ElevatedButton.icon(
-                        onPressed: () => _addToCart(context),
+                        onPressed: () => _updateCart(true),
                         icon: Icon(FontAwesomeIcons.cartPlus),
                         label: Text('أضف إلى السلة'),
                         style: ElevatedButton.styleFrom(
@@ -301,6 +282,31 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQuantityButton(
+      {required IconData icon,
+      required Color color,
+      required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 6,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: Colors.white),
       ),
     );
   }

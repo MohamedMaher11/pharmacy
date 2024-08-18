@@ -23,7 +23,11 @@ class _MedicinePageState extends State<MedicinePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.category.name} Medicines'),
+        backgroundColor: Colors.deepPurple,
+        title: Text(
+          '${widget.category.name} ',
+          style: TextStyle(color: Colors.white),
+        ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
           child: Padding(
