@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hamo_pharmacy/Features/Chat/lastseen.dart';
 import 'package:hamo_pharmacy/Features/Doctor/doctorreservation.dart';
 import 'package:hamo_pharmacy/Features/Favourate/favouratepage.dart';
+import 'package:hamo_pharmacy/Features/Profile/profile.dart';
+import 'package:hamo_pharmacy/Features/Profile/settingpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Widget buildDrawer(BuildContext context) {
@@ -50,10 +52,23 @@ Widget buildDrawer(BuildContext context) {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(FontAwesomeIcons.home),
-                  title: Text('الرئيسية'),
+                  leading: Icon(FontAwesomeIcons.user),
+                  title: Text('الملف الشخصي'),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(FontAwesomeIcons.cog),
+                  title: Text('الإعدادات'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
                   },
                 ),
                 if (isDoctor) // Show this item if the user is a doctor
@@ -77,7 +92,7 @@ Widget buildDrawer(BuildContext context) {
                 ),
                 ListTile(
                   leading: Icon(FontAwesomeIcons.calendar),
-                  title: Text('المعاملات البنكيه'),
+                  title: Text('المعاملات البنكية'),
                   onTap: () {
                     Navigator.of(context).pushNamed('/transaction_history');
                   },

@@ -41,7 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
             name: _nameController.text.trim(),
-            profileImage: _profileImage, // تمرير الصورة هنا
+            profileImage: _profileImage,
           );
     }
   }
