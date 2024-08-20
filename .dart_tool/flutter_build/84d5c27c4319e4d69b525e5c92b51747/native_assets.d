@@ -1,0 +1,1 @@
+ E:\\projjj\\Hamo_Pharmacy\\.dart_tool\\flutter_build\\84d5c27c4319e4d69b525e5c92b51747\\native_assets.yaml: 

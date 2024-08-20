@@ -362,6 +362,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "flutter_spinkit",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_spinkit-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///E:/flutter/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -570,6 +576,12 @@
       "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "lottie",
+      "rootUri": "file:///C:/Users/M/AppData/Local/Pub/Cache/hosted/pub.dev/lottie-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "matcher",
@@ -914,7 +926,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-08-18T21:53:43.397594Z",
+  "generated": "2024-08-20T12:17:48.928318Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
