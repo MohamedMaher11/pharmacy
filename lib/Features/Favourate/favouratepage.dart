@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart'; // استيراد الـ models
-import 'package:hamo_pharmacy/Features/DetailsPage/medecindetails.dart'; // استيراد الـ models
+import 'package:hamo_pharmacy/Features/DetailsPage/medecindetails.dart';
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart'; // استيراد الـ models
 
 class FavoritesPage extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart';
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
+import 'package:hamo_pharmacy/Features/payment/payment.dart';
 
 class MedicineDetailPage extends StatefulWidget {
   final Medicine medicine;
@@ -268,7 +269,13 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                     width: 370,
                     child: ElevatedButton(
                       onPressed: () {
-                        // انتقل إلى صفحة الدفع أو اشترِ مباشرة
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentPage(
+                                  totalAmount: widget.medicine.price *
+                                      _quantity)), // تمرير المبلغ الكلي
+                        );
                       },
                       child: Text('اشتر الآن'),
                       style: ElevatedButton.styleFrom(
