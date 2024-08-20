@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart';
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
 import 'package:hamo_pharmacy/Features/HomeScreen/widgets/healthcategorycard.dart';
 
 class AllCategoriesPage extends StatelessWidget {

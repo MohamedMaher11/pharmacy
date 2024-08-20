@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart'; // استيراد النماذج
+import 'package:hamo_pharmacy/Features/Medecins/medecin.dart';
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
 import 'package:hamo_pharmacy/Features/AllCategory/allcategory.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/widgets/medecin.dart';
 
 Widget buildHealthCategorySection(BuildContext context) {
   return Column(

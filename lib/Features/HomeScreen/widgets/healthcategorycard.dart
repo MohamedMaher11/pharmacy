@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart';
-import 'package:hamo_pharmacy/Features/HomeScreen/widgets/medecin.dart';
+import 'package:hamo_pharmacy/Features/Medecins/medecin.dart';
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
 
 Widget buildHealthCategoryCard(Category category, BuildContext context) {
   return GestureDetector(
