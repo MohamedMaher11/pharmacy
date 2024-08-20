@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hamo_pharmacy/Model/medecinmodel.dart'; // استيراد الـ models
-import 'package:hamo_pharmacy/Features/DetailsPage/medecindetails.dart'; // استيراد الـ models
+import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
+import 'package:hamo_pharmacy/Features/payment/payment.dart';
+import 'package:hamo_pharmacy/Features/DetailsPage/medecindetails.dart';
 
 class CartPage extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -111,30 +112,32 @@ class CartPage extends StatelessWidget {
                       color: Colors.black87),
                 ),
               ),
-              SizedBox(
-                  height: 16), // Add some space between total and the button
+              SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SizedBox(
                   width: 340,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add your buy functionality here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentPage(
+                                totalAmount: totalPrice)), // تمرير المبلغ الكلي
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Proceed to checkout')),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[800], // Background color
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15), // Button height
+                      backgroundColor: Colors.blue[800],
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30), // Rounded corners
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     child: Text(
-                      'Buy',
+                      'اشتر الان',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -143,7 +146,7 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Add some space at the bottom
+              SizedBox(height: 20),
             ],
           );
         },
