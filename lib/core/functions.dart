@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Widget buildTextField(
   TextEditingController controller,
@@ -62,4 +63,15 @@ Widget buildTextFieldDoctor({
     ),
     validator: validator,
   );
+}
+
+Future<void> checkLoginStatus(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
+  final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  if (isLoggedIn) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pushReplacementNamed(context, '/home');
+    });
+  }
 }
