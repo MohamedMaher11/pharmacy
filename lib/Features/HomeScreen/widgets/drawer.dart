@@ -63,7 +63,7 @@ Widget buildDrawer(BuildContext context) {
                 ),
                 ListTile(
                   leading: Icon(FontAwesomeIcons.cog),
-                  title: Text('الإعدادات'),
+                  title: Text('تغيير كلمة'),
                   onTap: () {
                     Navigator.push(
                       context,
