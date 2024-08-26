@@ -21,6 +21,8 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
   final TextEditingController _experienceController = TextEditingController();
   final TextEditingController _aboutMeController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _consultationFeeController =
+      TextEditingController();
 
   String _selectedSpecialty = 'طب الأطفال'; // التخصص الافتراضي
   XFile? _profileImage;
@@ -55,10 +57,12 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
             specialty: _selectedSpecialty,
             address: _addressController.text.trim(),
             phone: _phoneController.text.trim(),
-            profileImage: _profileImage, // تمرير الصورة
+            profileImage: _profileImage,
             education: _educationController.text.trim(),
             experience: _experienceController.text.trim(),
             aboutMe: _aboutMeController.text.trim(),
+            consultationFee:
+                _consultationFeeController.text.trim(), // أضف هذا السطر
           );
     }
   }
@@ -225,6 +229,12 @@ class _SignupDoctorScreenState extends State<SignupDoctorScreen> {
                   // ignore: deprecated_member_use
                   maxLines: 5,
                   keyboardType: TextInputType.multiline,
+                ),
+                buildTextFieldDoctor(
+                  controller: _consultationFeeController,
+                  label: 'سعر الحجز',
+                  validator: (value) => _validateNotEmpty(value, 'سعر الحجز'),
+                  keyboardType: TextInputType.number,
                 ),
                 SizedBox(height: 16),
                 _buildProfileImagePicker(),

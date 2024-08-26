@@ -30,6 +30,10 @@ dependencies:
   printing:
   lottie: ^3.1.2
   flutter_spinkit: ^5.2.1
+  responsive_framework: ^0.1.5
+  shimmer:
+  flutter_rating_bar: ^4.0.1
+  flutter_screenutil:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -18,7 +18,11 @@ class Assets {
   static const AssetGenImage a5bbf0b5a82ee32b15395ebb4a71a1090864b76d9ed717 =
       AssetGenImage(
           'assets/5bbf0b5a82ee3-2b15395ebb4a71a1090864b76d9ed717.png');
+  static const AssetGenImage listerine = AssetGenImage('assets/Listerine.png');
   static const AssetGenImage offer = AssetGenImage('assets/Offer.png');
+  static const AssetGenImage parodontax =
+      AssetGenImage('assets/Parodontax.png');
+  static const AssetGenImage sensodyne = AssetGenImage('assets/Sensodyne.png');
   static const AssetGenImage
       acetaminophenFeverCommonColdBackPainSymptomTablet5b958624313e3bc7921e803a47d99846 =
       AssetGenImage(
@@ -41,11 +45,16 @@ class Assets {
           'assets/cetaphil-gentle-skin-cleanser-cetaphil-daily-facial-cleanser-cetaphil-gentle-skin-cleansing-cloths-skin-cleansing-718272897fd3b62ef1ab353295bb10dc.png');
   static const AssetGenImage cetaphil = AssetGenImage('assets/cetaphil.png');
   static const AssetGenImage consult = AssetGenImage('assets/consult.jpg');
+  static const AssetGenImage cough = AssetGenImage('assets/cough.png');
+  static const AssetGenImage coughh = AssetGenImage('assets/coughh.png');
+  static const AssetGenImage dentist = AssetGenImage('assets/dentist.png');
   static const AssetGenImage
       discountsAndAllowancesCarPriceSpecialOffer99784d58dde70d589fb4b912ee0702af =
       AssetGenImage(
           'assets/discounts-and-allowances-car-price-special-offer-99784d58dde70d589fb4b912ee0702af.png');
   static const AssetGenImage doctor = AssetGenImage('assets/doctor.png');
+  static const AssetGenImage fever = AssetGenImage('assets/fever.png');
+  static const AssetGenImage headache = AssetGenImage('assets/headache.png');
   static const AssetGenImage
       ibuprofenPharmaceuticalDrugPharmacyGrindeksTabletE8095e83b787a99df9a632dcf76c715a =
       AssetGenImage(
@@ -63,21 +72,29 @@ class Assets {
       neutrogenaMaskCosmeticsFaceExfoliationMask36e23ebcb3b491345f7acf13cf007979 =
       AssetGenImage(
           'assets/neutrogena-mask-cosmetics-face-exfoliation-mask-36e23ebcb3b491345f7acf13cf007979.png');
+  static const AssetGenImage nurse = AssetGenImage('assets/nurse.png');
   static const AssetGenImage p2nbubc1eui1nlvr722p289i1l =
       AssetGenImage('assets/p2nbubc1eui1nlvr722p289i1l.png');
+  static const AssetGenImage pain = AssetGenImage('assets/pain.png');
   static const AssetGenImage pharmacy = AssetGenImage('assets/pharmacy.png');
   static const AssetGenImage pngegg = AssetGenImage('assets/pngegg.png');
   static const AssetGenImage pngegg2 = AssetGenImage('assets/pngegg2.png');
   static const AssetGenImage pngegg3 = AssetGenImage('assets/pngegg3.png');
   static const AssetGenImage protinexVanilla500x500 =
       AssetGenImage('assets/protinex-vanilla-500x500.png');
+  static const AssetGenImage skincare = AssetGenImage('assets/skincare.png');
+  static const AssetGenImage tension = AssetGenImage('assets/tension.png');
+  static const AssetGenImage tooth = AssetGenImage('assets/tooth.png');
   static const AssetGenImage user = AssetGenImage('assets/user.png');
 
   /// List of all assets
   static List<AssetGenImage> get values => [
         a5bbc5580520350c0f2113eafead789c5d25e16f666161,
         a5bbf0b5a82ee32b15395ebb4a71a1090864b76d9ed717,
+        listerine,
         offer,
+        parodontax,
+        sensodyne,
         acetaminophenFeverCommonColdBackPainSymptomTablet5b958624313e3bc7921e803a47d99846,
         advilColdSinusNonDrowsyAdvilMultiSymptomColdCoatedCaplets10CapletsIbuprofenBrandSinusInfectionRunnyNose3bd66c6197744153bc0d33083fd747d1,
         ceraveHydratingCleanserCeraveFoamingFacialCleanserCeraveMoisturizingLotionCeravePmFacialMoisturizingLotionFoamCleanser76aa845dd1f0ded0da97c85422aa652f,
@@ -85,19 +102,29 @@ class Assets {
         cetaphilGentleSkinCleanserCetaphilDailyFacialCleanserCetaphilGentleSkinCleansingClothsSkinCleansing718272897fd3b62ef1ab353295bb10dc,
         cetaphil,
         consult,
+        cough,
+        coughh,
+        dentist,
         discountsAndAllowancesCarPriceSpecialOffer99784d58dde70d589fb4b912ee0702af,
         doctor,
+        fever,
+        headache,
         ibuprofenPharmaceuticalDrugPharmacyGrindeksTabletE8095e83b787a99df9a632dcf76c715a,
         kisspngBenylinCoughMedicineCommonColdPharmacyWarehouseChemist5b2690885d3bf58909526915292540243819,
         kisspngBenylinCoughMedicinePurpleDrankCodeineCoughSyrup5b271c0b3fd4095717226415292897392615,
         medecin,
         neutrogenaMaskCosmeticsFaceExfoliationMask36e23ebcb3b491345f7acf13cf007979,
+        nurse,
         p2nbubc1eui1nlvr722p289i1l,
+        pain,
         pharmacy,
         pngegg,
         pngegg2,
         pngegg3,
         protinexVanilla500x500,
+        skincare,
+        tension,
+        tooth,
         user
       ];
 }

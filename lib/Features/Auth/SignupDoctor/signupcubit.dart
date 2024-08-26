@@ -24,6 +24,7 @@ class SignupDoctorCubit extends Cubit<SignupDoctorState> {
     required String education,
     required String experience,
     required String aboutMe,
+    required String consultationFee, // أضف هذا السطر
   }) async {
     try {
       emit(SignupDoctorLoading());
@@ -59,6 +60,7 @@ class SignupDoctorCubit extends Cubit<SignupDoctorState> {
         'education': education,
         'experience': experience,
         'aboutMe': aboutMe,
+        'consultationFee': consultationFee, // أضف هذا السطر
       });
 
       emit(SignupDoctorSuccess());
