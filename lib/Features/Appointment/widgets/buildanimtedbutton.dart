@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 
 Widget buildAnimatedButton(BuildContext context,
     {required IconData icon,
@@ -21,7 +22,7 @@ Widget buildAnimatedButton(BuildContext context,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       ),
       icon: Icon(icon, color: Colors.white),
-      label: Text(label, style: TextStyle(color: Colors.white)),
+      label: Text(label, style: fontcolor()),
       onPressed: onPressed,
     ),
   );

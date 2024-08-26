@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hamo_pharmacy/Features/Doctor/widget/review.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:intl/intl.dart';
 import 'package:hamo_pharmacy/Features/Chat/view/chat.dart';
 import 'package:hamo_pharmacy/Features/Chat/view/lastseen.dart';
@@ -305,7 +306,7 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
                       },
                       child: Text(
                         'حجز موعد',
-                        style: TextStyle(color: Colors.white),
+                        style: fontcolor(),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -537,7 +538,7 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
             alignment: Alignment.center,
             child: Text(
               slot,
-              style: TextStyle(color: Colors.white),
+              style: fontcolor(),
             ),
           ),
         );

@@ -98,3 +98,8 @@ Widget getCategoryImage(String categoryName) {
           height: 50); // صورة افتراضية
   }
 }
+
+TextStyle fontcolor() {
+  return fontcolor();
+  ;
+}

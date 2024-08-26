@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart'; // Add this for loading spinner
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hamo_pharmacy/core/functions.dart'; // Add this for loading spinner
 
 class PaymentPage extends StatefulWidget {
   final double totalAmount;
@@ -69,7 +70,7 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         title: Text(
           'Payment',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         backgroundColor: Colors.deepPurple,
       ),
@@ -104,7 +105,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: Center(
                           child: Text(
                         _currentStep == 0 ? 'Next' : 'Complete Payment',
-                        style: TextStyle(color: Colors.white),
+                        style: fontcolor(),
                       )),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:intl/intl.dart';
 import 'doctorrestervationdetails.dart'; // تأكد من تحديث مسار الصفحة بشكل صحيح
 
@@ -18,7 +19,7 @@ class _DoctorReservationsPageState extends State<DoctorReservationsPage> {
       appBar: AppBar(
         title: Text(
           'حجوزاتي',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         backgroundColor: Colors.deepPurple,
       ),

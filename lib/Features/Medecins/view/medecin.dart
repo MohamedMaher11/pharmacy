@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamo_pharmacy/Features/Model/medecinmodel.dart';
-import 'package:hamo_pharmacy/Features/Medecins/view/medecindetails.dart'; // استيراد الـ models
+import 'package:hamo_pharmacy/Features/Medecins/view/medecindetails.dart';
+import 'package:hamo_pharmacy/core/functions.dart'; // استيراد الـ models
 
 class MedicinePage extends StatefulWidget {
   final Category category;
@@ -26,7 +27,7 @@ class _MedicinePageState extends State<MedicinePage> {
         backgroundColor: Colors.deepPurple,
         title: Text(
           '${widget.category.name}',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(70.0),

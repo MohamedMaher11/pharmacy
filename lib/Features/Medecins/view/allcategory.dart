@@ -21,10 +21,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'اختر الفئة',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text('اختر الفئة', style: fontcolor()),
         backgroundColor: Colors.deepPurple,
       ),
       body: Column(

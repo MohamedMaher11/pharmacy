@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 
 class SettingsPage extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
@@ -33,7 +34,7 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'تغيير كلمة المرور',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         backgroundColor: Colors.deepPurple,
       ),
@@ -59,7 +60,7 @@ class SettingsPage extends StatelessWidget {
                 onPressed: () => _changePassword(context),
                 child: Text(
                   'تغير كلمة المرور',
-                  style: TextStyle(color: Colors.white),
+                  style: fontcolor(),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,

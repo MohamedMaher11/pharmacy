@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:provider/provider.dart';
 import 'package:hamo_pharmacy/core/valuenotifire.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +26,7 @@ class _AllDoctorsPageState extends State<AllDoctorsPage> {
       appBar: AppBar(
         title: Text(
           '${widget.specialty} Doctors',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,

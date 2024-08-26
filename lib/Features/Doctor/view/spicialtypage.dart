@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hamo_pharmacy/Features/Doctor/view/All_doctors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 
 class SpecialtiesPage extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _SpecialtiesPageState extends State<SpecialtiesPage> {
       appBar: AppBar(
         title: Text(
           'التخصصات',
-          style: TextStyle(color: Colors.white),
+          style: fontcolor(),
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,

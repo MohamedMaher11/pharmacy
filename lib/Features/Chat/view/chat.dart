@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 
 class ChatScreen extends StatefulWidget {
   final DocumentSnapshot doctor;
@@ -43,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
               backgroundImage: NetworkImage(widget.doctor['imageUrl'] ?? ''),
             ),
             SizedBox(width: 8),
-            Text(widget.doctor['name'], style: TextStyle(color: Colors.white)),
+            Text(widget.doctor['name'], style: fontcolor()),
           ],
         ),
         backgroundColor: Colors.deepPurple, // لون الـ AppBar جديد

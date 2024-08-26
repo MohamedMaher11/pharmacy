@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hamo_pharmacy/core/functions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -188,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
               child: Text(
                 _isEditing ? 'حفظ التعديلات' : 'تعديل الملف الشخصي',
-                style: TextStyle(color: Colors.white),
+                style: fontcolor(),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
