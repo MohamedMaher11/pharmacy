@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hamo_pharmacy/gen/assets.gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Widget buildTextField(
@@ -73,5 +75,26 @@ Future<void> checkLoginStatus(BuildContext context) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pushReplacementNamed(context, '/home');
     });
+  }
+}
+
+Widget getCategoryImage(String categoryName) {
+  switch (categoryName) {
+    case 'السعال':
+      return Image.asset(Assets.coughh.path, height: 50);
+    case 'تخفيف الألم':
+      return Image.asset(Assets.pain.path, height: 50);
+    case 'العناية بالبشرة':
+      return Image.asset(Assets.skincare.path, height: 50);
+    case 'الصداع':
+      return Image.asset(Assets.headache.path, height: 50);
+    case 'الحمى':
+      return Image.asset(Assets.fever.path, height: 50);
+
+    case 'العناية بالأسنان':
+      return Image.asset(Assets.dentist.path, height: 50);
+    default:
+      return Image.asset('assets/images/default.png',
+          height: 50); // صورة افتراضية
   }
 }
